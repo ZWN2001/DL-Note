@@ -4,7 +4,7 @@ from keras.callbacks import LambdaCallback
 from keras.models import Model, load_model, Sequential
 from keras.layers import Dense, Activation, Dropout, Input, Masking
 from keras.layers import LSTM
-from keras.utils.data_utils import get_file
+from keras.utils import get_file
 from keras.preprocessing.sequence import pad_sequences
 import numpy as np
 import random
@@ -54,8 +54,8 @@ def vectorization(X, Y, n_x, char_indices, Tx = 40):
     """
     
     m = len(X)
-    x = np.zeros((m, Tx, n_x), dtype=np.bool)
-    y = np.zeros((m, n_x), dtype=np.bool)
+    x = np.zeros((m, Tx, n_x), dtype=bool)
+    y = np.zeros((m, n_x), dtype=bool)
     for i, sentence in enumerate(X):
         for t, char in enumerate(sentence):
             x[i, t, char_indices[char]] = 1
