@@ -1,8 +1,8 @@
-from keras.models import Model
-from keras.layers import Input, Dense, Reshape, merge
-from keras.layers.embeddings import Embedding
-from keras.preprocessing.sequence import skipgrams
-from keras.preprocessing import sequence
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input, Dense, Reshape
+from tensorflow.keras.layers import Embedding
+from tensorflow.keras.preprocessing.sequence import skipgrams
+from tensorflow.keras.preprocessing import sequence
 
 import urllib.request
 import collections
@@ -99,7 +99,7 @@ class SimilarityCallback:
     
 
 def read_glove_vecs(glove_file):
-    with open(glove_file, 'r') as f:
+    with open(glove_file, 'r', encoding='utf-8') as f:
         words = set()
         word_to_vec_map = {}
         
