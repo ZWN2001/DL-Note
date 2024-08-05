@@ -4,8 +4,9 @@ import random
 from tqdm import tqdm
 from babel.dates import format_date
 from keras.utils import to_categorical
-import keras.backend as K
+import tensorflow.keras.backend as K
 import matplotlib.pyplot as plt
+import tensorflow
 
 fake = Faker()
 Faker.seed(12345)
@@ -187,7 +188,7 @@ def plot_attention_map(model, input_vocabulary, inv_output_vocabulary, text, n_s
     """
     attention_map = np.zeros((10, 30))
     Ty, Tx = attention_map.shape
-    
+
     s0 = np.zeros((1, n_s))
     c0 = np.zeros((1, n_s))
     layer = model.layers[num]
@@ -196,6 +197,8 @@ def plot_attention_map(model, input_vocabulary, inv_output_vocabulary, text, n_s
     encoded = np.array(list(map(lambda x: to_categorical(x, num_classes=len(input_vocabulary)), encoded)))
 
     f = K.function(model.inputs, [layer.get_output_at(t) for t in range(Ty)])
+    # f = tensorflow.function(model.inputs, [layer.get_output_at(t) for t in range(Ty)])
+
     r = f([encoded, s0, c0])
     
     for t in range(Ty):
